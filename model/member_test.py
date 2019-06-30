@@ -16,6 +16,11 @@ class TestMember(unittest.TestCase):
     def test_get_max_weeks(self):
         result = self.member.get_max_weeks()
         self.assertEqual(result, 4)
+    def test_get_recruit_probability_with_recruit(self):
+        for i in range(1, 11):
+            self.member.recruited.append(i)
+        result = self.member.get_recruit_probability()
+        self.assertEqual(result, 0)
     def test_get_recruit_probability(self):
         result = self.member.get_recruit_probability()
         self.assertEqual(result, 0.1)
