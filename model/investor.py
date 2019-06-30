@@ -17,4 +17,6 @@ class Investor:
         """
         Returns the probability of the investor accepting to join the program.
         """
-        return self.innocence * (1 - self.experience)
+        # This formula gives a bigger probability when the investor is more innocent and has little experience
+        not_experience = 1 - self.experience
+        return self.innocence * not_experience
