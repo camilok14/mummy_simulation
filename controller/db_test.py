@@ -5,14 +5,17 @@ def insert():
     insert.inserted = True
 def purge():
     purge.purged = True
+def remove():
+    remove.removed = True
 class MockTinyDB():
     def __init__(self):
         insert.inserted = False
         purge.purged = False
+        remove.removed = False
         self.doc = {}
     def table(self, name):
         return self
-    def update(self, doc):
+    def update(self, doc, query = ''):
         for key in doc.keys():
             self.doc[key] = doc[key]
     def get(self, query):
@@ -22,6 +25,10 @@ class MockTinyDB():
         self.doc = doc
     def purge_tables(self):
         purge()
+    def all(self):
+        return [self.doc]
+    def remove(self, query):
+        remove()
 
 class TestDB(unittest.TestCase):
     @patch('tinydb.TinyDB')
@@ -50,6 +57,17 @@ class TestDB(unittest.TestCase):
         self.db_controller.add_investor(doc)
         self.assertTrue(insert.inserted)
         self.assertFalse(purge.purged)
+    
+    def test_get_random_investor(self):
+        doc = {'id': 123, 'innocence': 0.3, 'experience': 0.1, 'charisma': 0.3}
+        self.db_controller.add_investor(doc)
+        result = self.db_controller.get_random_investor()
+        self.assertEqual(result, doc)
+
+    def test_add_member(self):
+        self.db_controller.add_member(0, 0, 0)
+        self.assertTrue(remove.removed)
+
 
 if __name__ == '__main__':
     unittest.main()

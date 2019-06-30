@@ -48,3 +48,39 @@ class DatabaseController:
         Returns the value of the simulation's current week.
         """
         return self.db.get(Query())['current_week']
+    def get_random_investor(self):
+        """
+        Returns a random investor document from the universe of investors.
+        """
+        return choice(self.investors.all())
+    def add_member(self, investor_id, member_id, current_week) -> None:
+        """
+        Adds a new member to the Mummy Money, Get Rich Quick Program!
+        Parameters
+        ----------
+        investor_id : int
+            The id of the investor that will become a member.
+        member_id: int
+            The id of the member that invited the investor to become a member.
+        current_week: int
+            Week number of the program when the operation took place.
+        """
+        query_investor = Query().id == investor_id
+        investor = self.investors.get(query_investor)
+        investor['parent'] = member_id
+        investor['money'] = 0
+        investor['week_joined'] = current_week
+        investor['active'] = True
+        investor['recruited'] = []
+        self.members.insert(investor)
+        self.investors.remove(query_investor)
+        query_member = Query().id == member_id
+        member = self.members.get(query_member)
+        member['recruited'].append(investor_id)
+        # since the new member pays 500 and the member that invited the investor gets 100, then the mummy gets 400
+        member['money'] += 100
+        query_mummy = Query().id == 0
+        mummy = self.members.get(query_mummy)
+        mummy['money'] += 400
+        self.members.update(member, query_member)
+        self.members.update(mummy, query_mummy)
