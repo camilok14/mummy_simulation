@@ -48,7 +48,7 @@ class DatabaseController:
         Returns the value of the simulation's current week.
         """
         return self.db.get(Query())['current_week']
-    def get_random_investor(self):
+    def get_random_investor(self) -> dict:
         """
         Returns a random investor document from the universe of investors.
         """
@@ -84,10 +84,15 @@ class DatabaseController:
         mummy['money'] += 400
         self.members.update(member, query_member)
         self.members.update(mummy, query_mummy)
-    def get_active_members(self):
+    def get_active_members(self) -> list:
         """
         Returns an array with the documents of the members that have not been eliminated from the program and are not the mummy.
         """
         Active = Query()
         query = (Active.id != 0) & (Active.active == True)
         return self.members.search(query)
+    def get_mummy_money(self) -> int:
+        """
+        Returns the current money earned by the mummy
+        """
+        return self.members.get(Query().id == 0)['money']

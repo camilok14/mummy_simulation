@@ -77,6 +77,12 @@ class TestDB(unittest.TestCase):
         result = self.db_controller.get_active_members()
         self.assertTrue(not result)
         self.assertTrue(search.searched)
+    def test_get_mummy_money(self):
+        money = 1000
+        doc = doc = {'id': 123, 'innocence': 0.3, 'experience': 0.1, 'charisma': 0.3, 'money': money}
+        self.db_controller.add_investor(doc)
+        result = self.db_controller.get_mummy_money()
+        self.assertEqual(result, money)
 
 if __name__ == '__main__':
     unittest.main()
