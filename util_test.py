@@ -19,5 +19,9 @@ class TestUtil(unittest.TestCase):
             skewness = skew(x)
             self.assertTrue(skewness < 0.1)
             self.assertTrue(skewness > -0.1)
+    def test_get_random_ids(self):
+        size = 20
+        ids = get_random_ids(size)
+        self.assertTrue(len(ids) == len(set(ids)))
 if __name__ == '__main__':
     unittest.main()
