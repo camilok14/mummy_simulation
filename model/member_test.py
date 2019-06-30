@@ -1,7 +1,7 @@
 import unittest
 from model.member import Member
 
-class TestInvestor(unittest.TestCase):
+class TestMember(unittest.TestCase):
     def setUp(self):
         member_doc = {
             'id':123,
