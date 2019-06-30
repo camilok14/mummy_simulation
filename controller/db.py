@@ -84,3 +84,10 @@ class DatabaseController:
         mummy['money'] += 400
         self.members.update(member, query_member)
         self.members.update(mummy, query_mummy)
+    def get_active_members(self):
+        """
+        Returns an array with the documents of the members that have not been eliminated from the program and are not the mummy.
+        """
+        Active = Query()
+        query = (Active.id != 0) & (Active.active == True)
+        return self.members.search(query)
