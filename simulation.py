@@ -4,6 +4,7 @@ from model.investor import Investor
 from controller.db import DatabaseController
 from util import get_random_attributes, get_random_ids, get_random_number
 
+allowed_distributions = ['uniform', 'normal']
 class Simulation:
     """
     The main class to manage the simulation of the  of the Mummy Money, Get Rich Quick Program!.
@@ -22,8 +23,7 @@ class Simulation:
                 Can only take the values 'uniform' or 'normal'
                 Distribution used to generate the innocence, experience and charisma attributes
                 of the investors.        
-        """
-        allowed_distributions = ['uniform', 'normal']
+        """        
         if distribution not in allowed_distributions:
             raise ValueError('Allowed values for distribution are: ' + ', '.join(allowed_distributions))
         self.population = population
