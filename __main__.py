@@ -3,6 +3,7 @@ from getopt import getopt, GetoptError
 from simulation import Simulation, allowed_distributions
 from controller.db import DatabaseController
 from server import Server
+from simulation import Simulation
 from threading import Thread
 
 def main(argv):
