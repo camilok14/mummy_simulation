@@ -37,7 +37,7 @@ class MockDatabaseController():
         active = []
         for doc_id in self.members:
             doc = self.members[doc_id]
-            if doc['active'] & doc_id != 0 & len(doc['recruited']) < 10:
+            if doc['active'] & doc_id != 0:
                 active.append(doc)
         return active
     def eliminate_member(self, member_id, week):
@@ -52,7 +52,7 @@ class TestSimulation(TestCase):
     def setUp(self, DatabaseController):
         DatabaseController.return_value = MockDatabaseController()
         from simulation import Simulation
-        self.simulation = Simulation(10000, 0, 'uniform')
+        self.simulation = Simulation(1000, 0, 'uniform')
 
     def test_simulation_value_error(self):
         from simulation import Simulation

@@ -65,6 +65,8 @@ class Simulation:
         """
         self.__set_week__(self.current_week + 1)
         members = self.db_controller.get_active_members()
+        filtered = filter(lambda x: len(x['recruited']) < 10, members)
+        members = list(filtered)
         if not members:
             self.continue_simulation = False
             return
