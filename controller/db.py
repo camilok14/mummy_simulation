@@ -103,6 +103,8 @@ class DatabaseController:
         ----------
         member_id : int
             The id of the member that will be marked as inactive.
+        week : int
+            Week number of the program when the operation took place.
         """
         query_member = Query().id == member_id
         member = self.members.get(query_member)
