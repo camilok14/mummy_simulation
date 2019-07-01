@@ -96,3 +96,17 @@ class DatabaseController:
         Returns the current money earned by the mummy
         """
         return self.members.get(Query().id == 0)['money']
+    def eliminate_member(self, member_id, week) -> None:
+        """
+        Removes a member from the program
+        Parameters
+        ----------
+        member_id : int
+            The id of the member that will be marked as inactive.
+        """
+        query_member = Query().id == member_id
+        member = self.members.get(query_member)
+        member['active'] = False
+        member['week_eliminated'] = week
+        self.members.update(member, query_member)
+

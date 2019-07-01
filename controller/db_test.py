@@ -9,18 +9,22 @@ def remove():
     remove.removed = True
 def search():
     search.searched = True
+def update():
+    update.updated = True
 class MockTinyDB():
     def __init__(self):
         insert.inserted = False
         purge.purged = False
         remove.removed = False
         search.searched = False
+        update.updated = False
         self.doc = {}
     def table(self, name):
         return self
     def update(self, doc, query = ''):
         for key in doc.keys():
             self.doc[key] = doc[key]
+        update()
     def get(self, query):
         return self.doc
     def insert(self, doc):
@@ -69,20 +73,29 @@ class TestDB(unittest.TestCase):
         self.db_controller.add_investor(doc)
         result = self.db_controller.get_random_investor()
         self.assertEqual(result, doc)
-
+    
     def test_add_member(self):
         self.db_controller.add_member(0, 0, 0)
         self.assertTrue(remove.removed)
+    
     def test_get_active_members(self):
         result = self.db_controller.get_active_members()
         self.assertTrue(not result)
         self.assertTrue(search.searched)
+    
     def test_get_mummy_money(self):
         money = 1000
         doc = doc = {'id': 123, 'innocence': 0.3, 'experience': 0.1, 'charisma': 0.3, 'money': money}
         self.db_controller.add_investor(doc)
         result = self.db_controller.get_mummy_money()
         self.assertEqual(result, money)
+
+    def test_eliminate_member(self):
+        member_id = 123
+        doc = doc = {'id': member_id, 'innocence': 0.3, 'experience': 0.1, 'charisma': 0.3, 'money': 400}
+        self.db_controller.add_investor(doc)
+        self.db_controller.eliminate_member(member_id, 3)
+        self.assertTrue(update.updated)
 
 if __name__ == '__main__':
     unittest.main()
