@@ -35,6 +35,7 @@ class Simulation:
     def __set_week__(self, week):
         self.current_week = week
         self.db_controller.set_current_week(self.current_week)
+        print('Current week is {}'.format(week))
     def __create_investors_universe__(self) -> None:
         """
         Populates database with universe of investors, using the parameters given on the constructor of the simulation.
