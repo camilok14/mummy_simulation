@@ -1,6 +1,8 @@
 from unittest import main, TestCase
 from unittest.mock import patch
 from random import choice
+from importlib import reload
+import simulation
 
 class MockDatabaseController():
     def __init__(self):
@@ -51,12 +53,11 @@ class TestSimulation(TestCase):
     @patch('controller.db.DatabaseController')
     def setUp(self, DatabaseController):
         DatabaseController.return_value = MockDatabaseController()
-        from simulation import Simulation
-        self.simulation = Simulation(1000, 0, 'uniform')
+        reload(simulation)
+        self.simulation = simulation.Simulation(1000, 0, 'uniform')
 
     def test_simulation_value_error(self):
-        from simulation import Simulation
-        self.assertRaises(ValueError, Simulation, 1000, 10, 'blabla')
+        self.assertRaises(ValueError, simulation.Simulation, 1000, 10, 'blabla')
     
     def test_run(self):
         self.simulation.run()
