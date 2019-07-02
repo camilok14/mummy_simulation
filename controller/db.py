@@ -79,10 +79,10 @@ class DatabaseController:
         member['recruited'].append(investor_id)
         # since the new member pays 500 and the member that invited the investor gets 100, then the mummy gets 400
         member['money'] += 100
+        self.members.update(member, query_member)
         query_mummy = Query().id == 0
         mummy = self.members.get(query_mummy)
         mummy['money'] += 400
-        self.members.update(member, query_member)
         self.members.update(mummy, query_mummy)
     def get_members(self) -> list:
         """
