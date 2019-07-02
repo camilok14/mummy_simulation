@@ -35,12 +35,10 @@ class MockTinyDB():
     def purge_tables(self):
         purge()
     def all(self):
+        search()
         return [self.doc]
     def remove(self, query):
         remove()
-    def search(self, query):
-        search()
-        return []
 
 class TestDB(TestCase):
     @patch('tinydb.TinyDB')
@@ -79,9 +77,9 @@ class TestDB(TestCase):
         self.db_controller.add_member(0, 0, 0)
         self.assertTrue(remove.removed)
     
-    def test_get_active_members(self):
-        result = self.db_controller.get_active_members()
-        self.assertTrue(not result)
+    def test_get_members(self):
+        result = self.db_controller.get_members()
+        self.assertFalse(not result)
         self.assertTrue(search.searched)
     
     def test_get_mummy_money(self):
