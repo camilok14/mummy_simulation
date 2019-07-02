@@ -44,8 +44,6 @@ class Simulation:
         """
         attributes = get_random_attributes(self.distribution, self.population)
         ids = get_random_ids(self.population)
-        # Adding the mummy as investor
-        self.db_controller.add_investor({'id': 0, 'innocence': 0.01, 'experience': 0.99, 'charisma': 0.99})
         for i in range(self.population):
             investor_doc = {'id': ids[i], 'innocence': attributes[0, i], 'experience': attributes[1, i], 'charisma': attributes[2, i]}
             self.db_controller.add_investor(investor_doc)
@@ -53,10 +51,8 @@ class Simulation:
                 self.logger.log('Created {} investors of {}'.format((i + 1), self.population))
     def __add_first_members__(self):
         """
-        Adds the mummy as a member and invites the 10 first members from the universe of investors.
+        The mummy invites the 10 first members from the universe of investors.
         """
-        # The mummy invites itself to be a member
-        self.db_controller.add_member(0, 0, self.current_week)
         # The mummy invites the first 10 members
         for _ in range(10):
             investor = self.db_controller.get_random_investor()
@@ -68,7 +64,7 @@ class Simulation:
         """
         self.__set_week__(self.current_week + 1)
         members = self.db_controller.get_members()
-        filtered = filter(lambda x: len(x['recruited']) < 10 & x['active'], members)
+        filtered = filter(lambda x: (len(x['recruited']) < 10) & x['active'], members)
         members = list(filtered)
         if not members:
             self.continue_simulation = False
