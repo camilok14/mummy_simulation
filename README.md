@@ -1,11 +1,11 @@
 # mummy_simulation
 
-#install
+# install
 ```
 pip3 install numpy nose scipy
 ```
 
-#tests
+# tests
 ```
 nosetests . */
 ```
