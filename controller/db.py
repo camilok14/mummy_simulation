@@ -14,10 +14,11 @@ class DatabaseController:
             When true, will erase all data in the database, to start a clean simulation.
         """
         self.db = TinyDB('./db.json')
-        if purge:
-            self.db.purge_tables()
         self.investors = self.db.table('investors')
         self.members = self.db.table('members')
+        if purge:
+            self.db.purge_tables()
+            self.members.insert({'id':0, 'money':0, 'recruited':[], 'week_joined':0, 'active': True}) # adds mummy as member
     def add_investor(self, investor_doc) -> None:
         """
         Insert a new investor in the universe of candidates to join the program.
