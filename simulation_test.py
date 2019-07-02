@@ -49,13 +49,17 @@ class MockDatabaseController():
         self.members[member_id] = member
     def get_mummy_money(self):
         return self.members[0]['money']
-class TestSimulation(TestCase):    
+class MockLogger:
+    def log(self, message):
+        pass
+class TestSimulation(TestCase):
+    @patch('controller.log.Logger')
     @patch('controller.db.DatabaseController')
-    def setUp(self, DatabaseController):
+    def setUp(self, DatabaseController, Logger):        
         DatabaseController.return_value = MockDatabaseController()
+        Logger.return_value = MockLogger()
         reload(simulation)
         self.simulation = simulation.Simulation(1000, 0, 'uniform')
-
     def test_simulation_value_error(self):
         self.assertRaises(ValueError, simulation.Simulation, 1000, 10, 'blabla')
     
