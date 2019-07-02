@@ -1,5 +1,7 @@
-import unittest
+from unittest import main, TestCase
 from unittest.mock import patch
+from importlib import reload
+from controller import db
 
 def insert():
     insert.inserted = True
@@ -40,16 +42,15 @@ class MockTinyDB():
         search()
         return []
 
-class TestDB(unittest.TestCase):
+class TestDB(TestCase):
     @patch('tinydb.TinyDB')
     def setUp(self, TinyDB):
         TinyDB.return_value = MockTinyDB()
-        from controller.db import DatabaseController
-        self.db_controller = DatabaseController()
+        reload(db)
+        self.db_controller = db.DatabaseController()
     
     def test_current_week(self):
-        from controller.db import DatabaseController
-        self.db_controller = DatabaseController(True)
+        self.db_controller = db.DatabaseController(True)
         week = 3
         self.db_controller.set_current_week(week)
         current_week = self.db_controller.get_current_week()
@@ -98,4 +99,4 @@ class TestDB(unittest.TestCase):
         self.assertTrue(update.updated)
 
 if __name__ == '__main__':
-    unittest.main()
+    main()
