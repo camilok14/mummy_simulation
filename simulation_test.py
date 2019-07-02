@@ -35,13 +35,11 @@ class MockDatabaseController():
         self.current_week = week
     def get_current_week(self):
         return self.current_week
-    def get_active_members(self):
-        active = []
+    def get_members(self):
+        members = []
         for doc_id in self.members:
-            doc = self.members[doc_id]
-            if doc['active'] & doc_id != 0:
-                active.append(doc)
-        return active
+            members.append(self.members[doc_id])
+        return members
     def eliminate_member(self, member_id, week):
         member = self.members[member_id]
         member['active'] = False

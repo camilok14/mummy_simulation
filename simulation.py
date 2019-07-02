@@ -67,8 +67,8 @@ class Simulation:
         This method will search all active members and apply the rules of the program.
         """
         self.__set_week__(self.current_week + 1)
-        members = self.db_controller.get_active_members()
-        filtered = filter(lambda x: len(x['recruited']) < 10, members)
+        members = self.db_controller.get_members()
+        filtered = filter(lambda x: len(x['recruited']) < 10 & x['active'], members)
         members = list(filtered)
         if not members:
             self.continue_simulation = False
