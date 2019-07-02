@@ -44,8 +44,6 @@ class Simulation:
         """
         attributes = get_random_attributes(self.distribution, self.population)
         ids = get_random_ids(self.population)
-        # Adding the mummy as investor
-        self.db_controller.add_investor({'id': 0, 'innocence': 0.01, 'experience': 0.99, 'charisma': 0.99})
         for i in range(self.population):
             investor_doc = {'id': ids[i], 'innocence': attributes[0, i], 'experience': attributes[1, i], 'charisma': attributes[2, i]}
             self.db_controller.add_investor(investor_doc)
