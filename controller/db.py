@@ -14,10 +14,11 @@ class DatabaseController:
             When true, will erase all data in the database, to start a clean simulation.
         """
         self.db = TinyDB('./db.json')
-        if purge:
-            self.db.purge_tables()
         self.investors = self.db.table('investors')
         self.members = self.db.table('members')
+        if purge:
+            self.db.purge_tables()
+            self.members.insert({'id':0, 'money':0, 'recruited':[], 'week_joined':0, 'active': True}) # adds mummy as member
     def add_investor(self, investor_doc) -> None:
         """
         Insert a new investor in the universe of candidates to join the program.
@@ -79,10 +80,10 @@ class DatabaseController:
         member['recruited'].append(investor_id)
         # since the new member pays 500 and the member that invited the investor gets 100, then the mummy gets 400
         member['money'] += 100
+        self.members.update(member, query_member)
         query_mummy = Query().id == 0
         mummy = self.members.get(query_mummy)
         mummy['money'] += 400
-        self.members.update(member, query_member)
         self.members.update(mummy, query_mummy)
     def get_members(self) -> list:
         """
