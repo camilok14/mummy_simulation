@@ -19,6 +19,3 @@ class Logger():
         self.logger.addHandler(file_handler)
     def log(self, message):
         self.logger.info(message)
-
-logger = Logger()
-logger.log('message')
