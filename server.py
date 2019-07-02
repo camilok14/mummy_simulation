@@ -22,5 +22,5 @@ class MummyMoney(Resource):
 class CurrentWeek(Resource):
     def get(self):
         db_controller = DatabaseController()
-        return db_controller.get_curent_week()
+        return db_controller.get_current_week()
 

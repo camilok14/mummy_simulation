@@ -6,7 +6,7 @@ def run_server():
 class MockDatabaseController():
     def get_mummy_money(self):
         return 1000
-    def get_curent_week(self):
+    def get_current_week(self):
         return 3
 class MockFlask():
     def __init__(self):
