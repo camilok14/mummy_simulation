@@ -51,10 +51,8 @@ class Simulation:
                 self.logger.log('Created {} investors of {}'.format((i + 1), self.population))
     def __add_first_members__(self):
         """
-        Adds the mummy as a member and invites the 10 first members from the universe of investors.
+        The mummy invites the 10 first members from the universe of investors.
         """
-        # The mummy invites itself to be a member
-        self.db_controller.add_member(0, 0, self.current_week)
         # The mummy invites the first 10 members
         for _ in range(10):
             investor = self.db_controller.get_random_investor()
