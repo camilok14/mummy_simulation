@@ -17,24 +17,14 @@ class Server:
             return response
         api = Api(self.app)
         api.add_resource(Health, '/health')
-        api.add_resource(MummyMoney, '/mummy_money')
         api.add_resource(Timelapse, '/timelapse')
         api.add_resource(Member, '/members')
-        api.add_resource(Timelapse, '/program_ended')
     def run(self):
         self.app.run(port = '3030')
 
 class Health(Resource):
     def get(self):
         return 'Service is up and running'
-class MummyMoney(Resource):
-    def get(self):
-        db_controller = DatabaseController()
-        return db_controller.get_mummy_money()
-class CurrentWeek(Resource):
-    def get(self):
-        db_controller = DatabaseController()
-        return db_controller.get_current_week()
 class Member(Resource):
     def get(self):
         return DatabaseController().get_members()

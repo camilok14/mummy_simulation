@@ -4,8 +4,8 @@ from unittest.mock import patch
 def run_server():
     run_server.running = True
 class MockDatabaseController():
-    def get_mummy_money(self):
-        return 1000
+    def get_members(self):
+        return [{}]
     def get_timelapse(self):
         return {'current_week': 3, 'program_ended': False}
     
@@ -40,11 +40,11 @@ class TestServer(TestCase):
         health = Health()
         result = health.get()
         self.assertEqual(result, 'Service is up and running')
-    def test_mummy_money(self):
-        from server import MummyMoney
-        health = MummyMoney()
-        result = health.get()
-        self.assertEqual(result, 1000)
+    def test_members(self):
+        from server import Member
+        member = Member()
+        result = member.get()
+        self.assertEqual(len(result), 1)
     def test_timelapse(self):
         from server import Timelapse
         timelapse = Timelapse()
