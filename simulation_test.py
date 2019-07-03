@@ -44,6 +44,8 @@ class MockDatabaseController():
         self.members[member_id] = member
     def get_mummy_money(self):
         return self.members[0]['money']
+    def end_program(self):
+        pass
 class MockLogger:
     def log(self, message):
         pass

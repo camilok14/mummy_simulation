@@ -46,11 +46,11 @@ class DatabaseController:
             The desired value to set as the current week.
         """
         self.timelapse.update({'current_week': current_week})
-    def get_current_week(self) -> int:
+    def get_timelapse(self) -> dict:
         """
-        Returns the value of the simulation's current week.
+        Returns the value of the simulation's current week and a flag indicating if the program has ended.
         """
-        return self.timelapse.get(Query())['current_week']
+        return self.timelapse.get(Query())
     def end_program(self) -> None:
         self.timelapse.update({'program_ended': True})
     def get_random_investor(self) -> dict:
