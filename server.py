@@ -6,7 +6,7 @@ class Server:
     def __init__(self):
         self.app = Flask(__name__)
         @self.app.after_request
-        def after_request(response):
+        def after_request(response): #pylint: disable=unused-variable
             response.headers.add('Access-Control-Allow-Origin', '*')
             response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization')
             response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE')
@@ -15,6 +15,7 @@ class Server:
         api.add_resource(Health, '/health')
         api.add_resource(MummyMoney, '/mummy_money')
         api.add_resource(CurrentWeek, '/current_week')
+        api.add_resource(Member, '/members')
     def run(self):
         self.app.run(port = '3030')
 
@@ -29,4 +30,6 @@ class CurrentWeek(Resource):
     def get(self):
         db_controller = DatabaseController()
         return db_controller.get_current_week()
-
+class Member(Resource):
+    def get(self):
+        return DatabaseController().get_members()
