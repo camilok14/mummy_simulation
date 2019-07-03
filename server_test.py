@@ -8,6 +8,8 @@ class MockDatabaseController():
         return [{}]
     def get_timelapse(self):
         return {'current_week': 3, 'program_ended': False}
+    def count_investors(self):
+        return 25
     
 class MockFlask():
     def __init__(self):
@@ -54,3 +56,8 @@ class TestServer(TestCase):
     def test_server(self):
         self.server.run()
         self.assertTrue(run_server.running)
+    def test_count_investors(self):
+        from server import Investors
+        investors = Investors()
+        result = investors.get()
+        self.assertEqual(result, 25)

@@ -19,6 +19,7 @@ class Server:
         api.add_resource(Health, '/health')
         api.add_resource(Timelapse, '/timelapse')
         api.add_resource(Member, '/members')
+        api.add_resource(Investors, '/investors')
     def run(self):
         self.app.run(port = '3030')
 
@@ -31,3 +32,6 @@ class Member(Resource):
 class Timelapse(Resource):
     def get(self):
         return DatabaseController().get_timelapse()
+class Investors(Resource):
+    def get(self):
+        return DatabaseController().count_investors()
