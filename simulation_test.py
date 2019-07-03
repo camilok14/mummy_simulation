@@ -7,7 +7,8 @@ import simulation
 class MockDatabaseController():
     def __init__(self):
         self.investors = {}
-        self.members = {}
+        mummy = {'id':0, 'money':0, 'recruited':[], 'active':True, 'week_joined': 0}
+        self.members = {0:mummy}
     def add_investor(self, doc):
         self.investors[doc['id']] = doc
     def get_random_investor(self):
@@ -15,12 +16,8 @@ class MockDatabaseController():
         return self.investors[doc_id]
     def add_member(self, investor_id, member_id, week):
         investor = self.investors[investor_id]
-        if investor_id == 0: # is the mummy
-            member = investor 
-            mummy = member
-        else:
-            member = self.members[member_id]
-            mummy = self.members[0]
+        member = self.members[member_id]
+        mummy = self.members[0]
         investor['week_joined'] = week
         investor['active'] = True
         investor['recruited'] = []
@@ -47,6 +44,8 @@ class MockDatabaseController():
         self.members[member_id] = member
     def get_mummy_money(self):
         return self.members[0]['money']
+    def end_program(self):
+        pass
 class MockLogger:
     def log(self, message):
         pass

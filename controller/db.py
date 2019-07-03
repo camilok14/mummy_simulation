@@ -16,9 +16,11 @@ class DatabaseController:
         self.db = TinyDB('./db.json')
         self.investors = self.db.table('investors')
         self.members = self.db.table('members')
+        self.timelapse = self.db.table('timelapse')
         if purge:
             self.db.purge_tables()
             self.members.insert({'id':0, 'money':0, 'recruited':[], 'week_joined':0, 'active': True}) # adds mummy as member
+            self.timelapse.insert({'current_week': 0, 'program_ended': False})
     def add_investor(self, investor_doc) -> None:
         """
         Insert a new investor in the universe of candidates to join the program.
@@ -43,12 +45,19 @@ class DatabaseController:
         current_week : int
             The desired value to set as the current week.
         """
-        self.db.update({'current_week': current_week})
-    def get_current_week(self) -> int:
+        self.timelapse.update({'current_week': current_week})
+    def get_timelapse(self) -> dict:
         """
-        Returns the value of the simulation's current week.
+        Returns the value of the simulation's current week and a flag indicating if the program has ended.
         """
-        return self.db.get(Query())['current_week']
+        return self.timelapse.get(Query())
+    def end_program(self) -> None:
+        self.timelapse.update({'program_ended': True})
+    def count_investors(self) -> int:
+        """
+        Returns the number of investors available to join the program
+        """
+        return self.investors.count(Query())
     def get_random_investor(self) -> dict:
         """
         Returns a random investor document from the universe of investors.

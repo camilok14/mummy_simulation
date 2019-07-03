@@ -23,6 +23,8 @@ class MockTinyDB():
         self.doc = {}
     def table(self, name):
         return self
+    def count(self, query):
+        return 25
     def update(self, doc, query = ''):
         for key in doc.keys():
             self.doc[key] = doc[key]
@@ -47,12 +49,12 @@ class TestDB(TestCase):
         reload(db)
         self.db_controller = db.DatabaseController()
     
-    def test_current_week(self):
+    def test_timelapse(self):
         self.db_controller = db.DatabaseController(True)
         week = 3
         self.db_controller.set_current_week(week)
-        current_week = self.db_controller.get_current_week()
-        self.assertEqual(current_week, week)
+        timelapse = self.db_controller.get_timelapse()
+        self.assertEqual(timelapse['current_week'], week)
         self.assertTrue(purge.purged)
     
     def test_add_investor(self):
@@ -95,6 +97,13 @@ class TestDB(TestCase):
         self.db_controller.add_investor(doc)
         self.db_controller.eliminate_member(member_id, 3)
         self.assertTrue(update.updated)
+
+    def test_end_program(self):
+        self.db_controller.end_program()
+        self.assertTrue(update.updated)
+    def test_count_investors(self):
+        investors = self.db_controller.count_investors()
+        self.assertEqual(investors, 25)
 
 if __name__ == '__main__':
     main()
