@@ -1,6 +1,10 @@
 from flask import Flask, request
 from flask_restful import Resource, Api
 from controller.db import DatabaseController
+import logging
+
+log = logging.getLogger('werkzeug')
+log.setLevel(logging.ERROR)
 
 class Server:
     def __init__(self):
