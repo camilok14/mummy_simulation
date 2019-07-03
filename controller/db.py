@@ -53,6 +53,11 @@ class DatabaseController:
         return self.timelapse.get(Query())
     def end_program(self) -> None:
         self.timelapse.update({'program_ended': True})
+    def count_investors(self) -> int:
+        """
+        Returns the number of investors available to join the program
+        """
+        return self.investors.count(Query())
     def get_random_investor(self) -> dict:
         """
         Returns a random investor document from the universe of investors.

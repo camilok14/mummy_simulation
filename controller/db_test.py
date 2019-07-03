@@ -23,6 +23,8 @@ class MockTinyDB():
         self.doc = {}
     def table(self, name):
         return self
+    def count(self, query):
+        return 25
     def update(self, doc, query = ''):
         for key in doc.keys():
             self.doc[key] = doc[key]
@@ -99,6 +101,9 @@ class TestDB(TestCase):
     def test_end_program(self):
         self.db_controller.end_program()
         self.assertTrue(update.updated)
+    def test_count_investors(self):
+        investors = self.db_controller.count_investors()
+        self.assertEqual(investors, 25)
 
 if __name__ == '__main__':
     main()
