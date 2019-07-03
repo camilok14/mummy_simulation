@@ -67,6 +67,7 @@ class Simulation:
         filtered = filter(lambda x: (len(x['recruited']) < 10) & x['active'], members)
         members = list(filtered)
         if not members:
+            self.db_controller.end_program()
             self.continue_simulation = False
             return
         for member_doc in members:
