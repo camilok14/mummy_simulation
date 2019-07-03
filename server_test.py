@@ -6,10 +6,13 @@ def run_server():
 class MockDatabaseController():
     def get_mummy_money(self):
         return 1000
-    def get_current_week(self):
-        return 3
+    def get_timelapse(self):
+        return {'current_week': 3, 'program_ended': False}
+    
 class MockFlask():
     def __init__(self):
+        pass
+    def after_request(self, arg1):
         pass
     def run(self, port):
         run_server()
@@ -42,11 +45,12 @@ class TestServer(TestCase):
         health = MummyMoney()
         result = health.get()
         self.assertEqual(result, 1000)
-    def test_current_week(self):
-        from server import CurrentWeek
-        health = CurrentWeek()
-        result = health.get()
-        self.assertEqual(result, 3)
+    def test_timelapse(self):
+        from server import Timelapse
+        timelapse = Timelapse()
+        result = timelapse.get()
+        self.assertEqual(result['current_week'], 3)
+        self.assertFalse(result['program_ended'])
     def test_server(self):
         self.server.run()
         self.assertTrue(run_server.running)

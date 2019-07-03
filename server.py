@@ -18,8 +18,9 @@ class Server:
         api = Api(self.app)
         api.add_resource(Health, '/health')
         api.add_resource(MummyMoney, '/mummy_money')
-        api.add_resource(CurrentWeek, '/current_week')
+        api.add_resource(Timelapse, '/timelapse')
         api.add_resource(Member, '/members')
+        api.add_resource(Timelapse, '/program_ended')
     def run(self):
         self.app.run(port = '3030')
 
@@ -37,3 +38,6 @@ class CurrentWeek(Resource):
 class Member(Resource):
     def get(self):
         return DatabaseController().get_members()
+class Timelapse(Resource):
+    def get(self):
+        return DatabaseController().get_timelapse()
