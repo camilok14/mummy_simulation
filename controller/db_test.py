@@ -96,5 +96,9 @@ class TestDB(TestCase):
         self.db_controller.eliminate_member(member_id, 3)
         self.assertTrue(update.updated)
 
+    def test_end_program(self):
+        self.db_controller.end_program()
+        self.assertTrue(update.updated)
+
 if __name__ == '__main__':
     main()
