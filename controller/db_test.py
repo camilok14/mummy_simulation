@@ -47,12 +47,12 @@ class TestDB(TestCase):
         reload(db)
         self.db_controller = db.DatabaseController()
     
-    def test_current_week(self):
+    def test_timelapse(self):
         self.db_controller = db.DatabaseController(True)
         week = 3
         self.db_controller.set_current_week(week)
-        current_week = self.db_controller.get_current_week()
-        self.assertEqual(current_week, week)
+        timelapse = self.db_controller.get_timelapse()
+        self.assertEqual(timelapse['current_week'], week)
         self.assertTrue(purge.purged)
     
     def test_add_investor(self):
