@@ -2,7 +2,7 @@
 
 # install
 ```
-pip3 install numpy nose scipy flask flask_restful
+pip3 install numpy nose scipy flask flask_restful tinydb
 ```
 # tests
 ```
