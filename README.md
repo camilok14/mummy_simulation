@@ -12,6 +12,9 @@ nosetests . */
 ```
 python3 . -t 5 -p 100 -d normal
 ```
+-t: number of seconds to take 
+-p: number of investors of the universe
+-d: 'normal' will use normal distribution to generate investors attributes and 'uniform' will use uniform distribution to generate investors attributes
 # help
 ```
 python3 . -h
