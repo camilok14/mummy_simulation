@@ -21,7 +21,7 @@ class Server:
         api.add_resource(Member, '/members')
         api.add_resource(Investors, '/investors')
     def run(self):
-        self.app.run(port = '3030')
+        self.app.run(host = '0.0.0.0', port = '3030')
 
 class Health(Resource):
     def get(self):
