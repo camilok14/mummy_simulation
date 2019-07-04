@@ -16,7 +16,7 @@ class MockFlask():
         pass
     def after_request(self, arg1):
         pass
-    def run(self, port):
+    def run(self, host, port):
         run_server()
 class MockApi():
     def __init__(self, app):
