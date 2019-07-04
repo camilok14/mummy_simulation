@@ -10,7 +10,7 @@ def main(argv):
   timelapse = 10
   distribution = 'uniform'
 
-  help_text = 'usage: mummy [args]\n'\
+  help_text = 'usage: . [args]\n'\
     '-h\t: print this help message\n'\
     '-p\t: population, number of investors\n'\
     '-d\t: distribution (normal or uniform)\n'\

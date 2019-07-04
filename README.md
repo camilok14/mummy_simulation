@@ -12,6 +12,10 @@ nosetests . */
 ```
 python3 . -t 5 -p 100 -d normal
 ```
+# help
+```
+python3 . -h
+```
 # docker
 ```
 docker pull camilok14/mummy-simulation
